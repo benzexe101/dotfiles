@@ -1,0 +1,21 @@
+#!/usr/bin/env fish
+# usage: newcpp projectname
+set name $argv[1]
+mkdir -p ~/dev/cpp/$name
+cd ~/dev/cpp/$name
+
+echo '#include <iostream>
+
+int main() {
+    std::cout << "hello\n";
+    return 0;
+}' > main.cpp
+
+echo "cmake_minimum_required(VERSION 3.20)
+project($name)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+add_executable($name main.cpp)" > CMakeLists.txt
+cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug >/dev/null
+ln -sf build/compile_commands.json .
+echo "ready: ~/dev/cpp/$name"
