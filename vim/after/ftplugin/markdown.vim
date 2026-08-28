@@ -16,6 +16,9 @@ function! s:MdPreview() abort
     call system('pandoc ' . shellescape(expand('%:p'))
           \ . ' --pdf-engine=typst -o ' . shellescape(l:pdf))
   endif
+  if v:shell_error
+    echohl ErrorMsg | echom 'pandoc failed' | echohl None | return
+  endif
 
   if !exists('b:md_viewer') || job_status(b:md_viewer) !=# 'run'
     let b:md_viewer = job_start(['zathura', l:pdf],
