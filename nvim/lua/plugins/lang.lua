@@ -2,45 +2,9 @@ return {
 	-- ── Syntax highlighting ──────────────────────────────────────────
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "master",
+		branch = "main",
+		lazy = false,
 		build = ":TSUpdate",
-		event = { "BufReadPost", "BufNewFile" },
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"c",
-					"cpp",
-					"cmake",
-					"make",
-					"python",
-					"toml",
-					"javascript",
-					"typescript",
-					"tsx",
-					"html",
-					"css",
-					"json",
-					"jsonc",
-					"rust",
-					"ron",
-					"typst",
-					"lua",
-					"vim",
-					"vimdoc",
-					"bash",
-					"fish",
-					"markdown",
-					"markdown_inline",
-				},
-				highlight = {
-					enable = true,
-					disable = function(_, buf)
-						return vim.bo[buf].buftype ~= ""
-					end,
-				},
-				indent = { enable = true },
-			})
-		end,
 	},
 
 	-- ── Completion ───────────────────────────────────────────────────
