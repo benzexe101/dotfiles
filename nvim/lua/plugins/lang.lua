@@ -65,6 +65,7 @@ return {
 				"html",
 				"eslint",
 				"lua_ls",
+				"tinymist",
 			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
