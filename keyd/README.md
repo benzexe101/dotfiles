@@ -43,9 +43,9 @@ keyd only grabs keyboard-class devices.
 
 Installed by copy rather than symlink: keyd is a root daemon reading
 from `/etc`, and SELinux objects to it following a link into `/home`.
-Re-run `install.sh` after editing.
-
-The Touch Bar function row on this model is a separate virtual input
-device (`1209:316e`, "Dynamic Function Row Virtual Input Device") and
-is not remapped here — F-key mappings added to this config would
-silently do nothing.
+Re-run `install.sh` after editing. It restarts the daemon rather than
+calling `keyd reload` — on keyd 2.6.0 (aarch64) an in-place reload
+re-parsed the config cleanly, then segfaulted in `process_event` on the
+next keypress. The packaged unit ships no `Restart=` policy, so a crash
+leaves you with no remap until you notice; see
+`/etc/systemd/system/keyd.service.d/override.conf`.
