@@ -11,5 +11,5 @@ if [[ ! -f "$CONF" ]]; then
 fi
 
 sudo install -D -m 644 -o root -g root "$CONF" /etc/keyd/default.conf
-sudo keyd reload
+sudo systemctl restart keyd
 echo "installed $HOST.conf"
