@@ -1,6 +1,7 @@
 (defcfg
   linux-dev-names-include (
     "Telink Wireless Gaming Keyboard"
+    "AT Translated Set 2 keyboard"
   )
   process-unmapped-keys yes
 )
