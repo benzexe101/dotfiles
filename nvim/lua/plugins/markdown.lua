@@ -14,6 +14,7 @@ return {
 		build = "cd app && npm install",
 		config = function()
 			vim.g.mkdp_auto_close = 0
+            vim.g.mkdp_browser = "zen-browser"
 			vim.keymap.set("n", "<leader>m", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown preview (browser)" })
 		end,
 	},
