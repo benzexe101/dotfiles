@@ -5,7 +5,9 @@ hl.on("hyprland.start", function()
 end)
 
 if hostname == "BenX1" then
-	hl.monitor({ output = "eDP-1", mode = "2880x1800@120", position = "0x0", scale = 2 })
+    hl.monitor({ output = "eDP-1", disabled = false, mode = "2880x1800@120", position = "0x0", scale = 2 })
+	hl.monitor({ output = "DP-1", mode = "2560x1440@180.063", position = "4000x0", scale = 1 })
+	hl.monitor({ output = "DP-2", mode = "2560x1440@200.013", position = "1440x0", scale = 1 })
 else
 	hl.monitor({ output = "DP-3", mode = "2560x1440@143.99", position = "0x0", scale = 1 }) --This Monitor is on the left side.
 	hl.monitor({ output = "DP-1", mode = "2560x1440@143.99", position = "2560x0", scale = 1 }) --This Monitor is on the right side.
@@ -27,12 +29,6 @@ hl.bind("SUPER + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 hl.bind("SUPER + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
 hl.bind("SUPER + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
 
--- Lid switch (X1 clamshell)
-
--- Monitors (X1 dock)
-hl.monitor({ output = "eDP-1", disabled = false, mode = "2880x1800@120", position = "0x0", scale = 2 })
-hl.monitor({ output = "DP-1", mode = "2560x1440@180.063", position = "4000x0", scale = 1 })
-hl.monitor({ output = "DP-2", mode = "2560x1440@200.013", position = "1440x0", scale = 1 })
 
 -- Lid switch (clamshell)
 hl.bind("switch:on:Lid Switch", function()
