@@ -1,12 +1,11 @@
 -- ── Leader must be set before ANY keymap or lazy.setup ────────────
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+require("remap")
 
 vim.opt.guicursor = ""
 vim.opt.dictionary = "/usr/share/dict/words"
 
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
@@ -38,21 +37,37 @@ require("lazy").setup({
 
 	{
 		"mason-org/mason-lspconfig.nvim",
-		dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
+		dependencies = {
+			"mason-org/mason.nvim",
+			"neovim/nvim-lspconfig",
+		},
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "tinymist", "jsonls", "cssls", "html", "eslint" },
+				ensure_installed = {
+					"tinymist",
+					"jsonls",
+					"cssls",
+					"html",
+					"eslint",
+				},
 			})
+
 			vim.lsp.config("tinymist", {
-				cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/tinymist") },
+				cmd = {
+					vim.fn.expand("~/.local/share/nvim/mason/bin/tinymist"),
+				},
 			})
+
 			vim.lsp.enable("tinymist")
 		end,
 	},
 
 	{ import = "plugins" },
+}, {
+	rocks = {
+		enabled = false,
+	},
 })
-
 -- ── Typst preview: buffer-local, only where tinymist attaches ─────
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
