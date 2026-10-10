@@ -32,7 +32,9 @@ hl.bind("SUPER + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
 
 -- Lid switch (clamshell)
 hl.bind("switch:on:Lid Switch", function()
-    hl.monitor({ output = "eDP-1", disabled = true })
+    -- eDP-1 deliberately NOT disabled here: destroying the output while a
+    -- session lock is active orphans the lock surface and wedges the session.
+    -- Recover with: hyprctl --instance 0 eval 'hl.clear_crashed_lockscreen()'
     hl.dispatch(hl.dsp.exec_cmd("notify-send 'lid closed'"))
 end, { locked = true })
 hl.bind("switch:off:Lid Switch", function()

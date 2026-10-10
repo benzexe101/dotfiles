@@ -6,3 +6,17 @@ Neovim is set up for C++, Rust, Python, TypeScript, and Java, with LSP,
 completion, formatting, and a debugger. Works on Linux and Windows.
 
 ## Layout
+
+dotfiles/
+├── bin/
+├── docs/
+├── fish/
+├── hypr/
+├── kanata/
+├── keyd/
+├── nvim/
+├── pandoc/
+├── systemd/
+├── vim/
+├── xdg/
+└── README.md
