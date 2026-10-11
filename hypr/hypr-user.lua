@@ -3,16 +3,17 @@ local hostname = io.popen("hostname"):read("*l")
 hl.on("hyprland.start", function()
 	hl.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/geforcenow-fullscreen.sh")
 end)
-
 if hostname == "BenX1" then
-    hl.monitor({ output = "eDP-1", disabled = false, mode = "2880x1800@120", position = "0x0", scale = 2 })
-	hl.monitor({ output = "DP-1", mode = "2560x1440@180.063", position = "4000x0", scale = 1 })
-	hl.monitor({ output = "DP-2", mode = "2560x1440@200.013", position = "1440x0", scale = 1 })
+	--hl.monitor({ output = "eDP-1", disabled = false, mode = "2880x1800@120", position = "0x0", scale = 2 })
+	hl.monitor({ output = "eDP-1", disabled = false, mode = "2880x1800@120", position = "4640x0", scale = 2 }) -- This is in case you want to use the laptop on top of the Desktop tower --
+	hl.monitor({ output = "DP-1", mode = "2560x1440@180", position = "1440x0", scale = 1.6 })
+	hl.monitor({ output = "DP-2", mode = "2560x1440@180", position = "3040x0", scale = 1.6 })
 else
+	-- Keep your existing desktop configuration
 	hl.monitor({ output = "DP-3", mode = "2560x1440@143.99", position = "0x0", scale = 1 }) --This Monitor is on the left side.
 	hl.monitor({ output = "DP-1", mode = "2560x1440@143.99", position = "2560x0", scale = 1 }) --This Monitor is on the right side.
 	hl.monitor({ output = "DVI-I-1", disabled = true })
-	--monitor=DP-1,2560x1440@143.99,0x1440,1 #This Monitor will be the bottom one (use this only when you physically move the monitor to the bottom position, and don't forget to remove the hashtag symbol.
+	--monitor=DP-1,2560x1440@143.99,0x1440,1 #This Monitor will be the bottom one (use this only when you physically move the monitor to the bottom position, and don't forget to remove the hashtag symbol/ -- symbol
 end
 
 hl.bind("SUPER + Slash", hl.dsp.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/cheatsheet-toggle.sh"))
@@ -28,16 +29,12 @@ hl.bind("SUPER + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
 hl.bind("SUPER + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 hl.bind("SUPER + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
 hl.bind("SUPER + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
+-- ── Clamshell mode ─────────────────────────────-- ── Clamshell mode ─────────────────────────────
 
-
--- Lid switch (clamshell)
-hl.bind("switch:on:Lid Switch", function()
-    -- eDP-1 deliberately NOT disabled here: destroying the output while a
-    -- session lock is active orphans the lock surface and wedges the session.
-    -- Recover with: hyprctl --instance 0 eval 'hl.clear_crashed_lockscreen()'
-    hl.dispatch(hl.dsp.exec_cmd("notify-send 'lid closed'"))
-end, { locked = true })
-hl.bind("switch:off:Lid Switch", function()
-    hl.monitor({ output = "eDP-1", disabled = false, mode = "2880x1800@120", position = "0x0", scale = 2 })
-    hl.dispatch(hl.dsp.exec_cmd("notify-send 'lid opened'"))
-end, { locked = true })
+if hostname == "BenX1" then
+	hl.bind(
+		"switch:Lid Switch",
+		hl.dsp.exec_cmd("bash " .. os.getenv("HOME") .. "/.config/hypr/scripts/clamshell.sh"),
+		{ locked = true }
+	)
+end
