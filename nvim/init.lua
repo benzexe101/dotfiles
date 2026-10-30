@@ -59,6 +59,7 @@ require("lazy").setup({
 			})
 
 			vim.lsp.enable("tinymist")
+			vim.lsp.enable("ada_ls")
 		end,
 	},
 
